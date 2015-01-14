@@ -5,8 +5,7 @@ Trying to create an async app with Tk. Main module
 """
 
 import sys 
-import select
-import Queue
+#import Queue
 import threading
 import time
 
