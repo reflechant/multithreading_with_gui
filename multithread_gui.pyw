@@ -31,7 +31,7 @@ def shift_lbl(event):
 #    if not queue.empty():
 #        S.set(queue.get())
  
-def read(ev_for_wait, ev_for_set):
+"""def read(ev_for_wait, ev_for_set):
  while True:
     #if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
         ev_for_wait.wait()
@@ -45,9 +45,17 @@ def read(ev_for_wait, ev_for_set):
             pass
     #else:
     #    pass
-    #time.sleep(0.001)
+    #time.sleep(0.001)"""
 
-def write(ev_for_wait, ev_for_set):
+def read():
+ while True:
+    line = sys.stdin.readline()
+    if line:
+        S.set(line)
+    else:
+        break
+
+"""def write(ev_for_wait, ev_for_set):
  while True:
     ev_for_wait.wait()
     ev_for_wait.clear()
@@ -59,7 +67,7 @@ def write(ev_for_wait, ev_for_set):
         S.set(x)
         #root.update_idletasks()
         root.update()
-    #time.sleep(0.001)
+    #time.sleep(0.001)"""
 
 #-------------------------------------------------------------------------------
 
@@ -83,17 +91,19 @@ S2.set("TEXT")
 B.bind("<Button-1>", shift_lbl)
 
 #-------------------------------------------------------------------------------
-ev1 = threading.Event()
-ev2 = threading.Event()
+#ev1 = threading.Event()
+#ev2 = threading.Event()
 
-thread = threading.Thread(target = read, args = (ev1,ev2) )
-thread2 = threading.Thread(target = write, args = (ev2,ev1) )
+thread = threading.Thread( target = read )
+#thread = threading.Thread(target = read, args = (ev1,ev2) )
+#thread2 = threading.Thread(target = write, args = (ev2,ev1) )
 
 thread.start()
-thread2.start()
+#thread2.start()
 
-ev2.set()
+#ev2.set()
 #thread.join()
 #thread2.join()
 
 root.mainloop()
+#thread.join()
